@@ -1,18 +1,19 @@
-version: "3"
+version: "3.3"
 
 services:
-  # Database
+  # database
   db:
     image: mysql:5.7
     volumes:
-      - db_data:/var/lib/mysql
+      - wp_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: somewordpress
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
-  # phpmyadmin
+
+  # admin
   phpmyadmin:
     depends_on:
       - db
@@ -23,7 +24,8 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
-  # Wordpress
+
+  # wordpress
   wordpress:
     depends_on:
       - db
@@ -38,5 +40,6 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+
 volumes:
-  db_data: {}
+  wp_data: {}
